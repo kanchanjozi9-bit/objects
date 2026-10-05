@@ -29,46 +29,31 @@ const target = {
     y: 500,
     r: 6,
 };
-const leftPoint = {
-    x: 400,
-    y: 300,
-};
-
-const rightPoint = {
-    x: 800,
-    y: 800,
-};
-
-let num;
 
 function createTarget(radius) {
     if (radius > r.GetScreenWidth() / 2 - 200) {
         return;
     }
     radius += 45;
+
     let color = radius % 2 === 0 ? r.RED : r.WHITE;
+
     createTarget(radius);
+
     r.DrawCircle(target.x, target.y, radius, color);
 }
-function update() {
-    leftPoint.x = leftPoint.x + 2;
-    leftPoint.y = leftPoint.y + 2;
-    rightPoint.x -= 2;
-    rightPoint.y -= 2;
-}
+function update() {}
 function draw() {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
-    r.DrawRectangleRec(window, r.SKYBLUE);
-    r.DrawRectangleLinesEx(window, 3, r.WHITE);
+
     r.DrawRectangleRounded(window, 0.3, 8, blue);
     r.DrawRectangleRoundedLines(window, 0.3, 8, 3, r.WHITE);
+
     r.DrawRectangleRounded(button, 1, 8, blue);
     r.DrawRectangleRoundedLines(button, 1, 8, 2, r.WHITE);
+
     createTarget(target.r);
-    r.DrawCircleV(leftPoint, 70, r.GOLD);
-    r.DrawCircleV(rightPoint, 50, r.BLUE);
-    r.DrawLineV(leftPoint, rightPoint, r.SKYBLUE);
 
     r.EndDrawing();
 }
