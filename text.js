@@ -33,7 +33,7 @@ function measureText(currentLine) {
     return textWidth;
 }
 function isLineFull(currentLine, world) {
-    return measureText(currentLine) >= world.page.width;
+    return measureText(currentLine) >= world.page.width - 20;
 }
 function getText(world) {
     let key = getKey();
