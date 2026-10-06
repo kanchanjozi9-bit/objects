@@ -40,9 +40,8 @@ function getText(world) {
     while (key > 0) {
         if (!isLineFull()) {
             currentLine.t += String.fromCodePoint(key);
-            world.page.t += currentLine.t;
         } else {
-            currentLine.x = nextLine.x;
+            currentLine.x = 12;
             currentLine.y += 50;
             world.page.t += currentLine.t;
             currentLine.t = "";
@@ -69,7 +68,7 @@ function draw(world) {
     r.ClearBackground(r.WHITE);
     r.DrawRectangleRec(world.page, r.GRAY);
     r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
-    r.DrawText(world.page.t + "", nextLine.x, nextLine.y, 40, r.BLACK);
+    r.DrawText(world.page.t + "", world.page.x, world.page.y, 40, r.BLACK);
     r.EndDrawing();
 }
 
