@@ -22,38 +22,33 @@ function setup() {
 const currentLine = {
     x: 12,
     y: 12,
-    t: "hello",
+    t: "",
 };
-
 function getKey() {
     return r.GetCharPressed();
 }
 
+function measureText(currentLine) {
+    let textWidth = r.MeasureText(currentLine.t, 40);
+    return textWidth;
+}
+function isLineFull(currentLine) {
+    return measureText(currentLine) > r.GetScreenWidth() - 20;
+}
 function getText(world) {
     let key = getKey();
     while (key > 0) {
-        if (!isLineFull()) {
+        if (!isLineFull(currentLine)) {
             currentLine.t += String.fromCodePoint(key);
         } else {
             world.page.t += currentLine.t + "\n";
             currentLine.x = 12;
-            currentLine.y += 70;
-            world.page.draw.x = 12;
-            world.page.draw.y += 50;
+            currentLine.y += world.page.y + 50;
             currentLine.t = "";
-            console.log(currentLine.x, currentLine.y);
         }
 
         key = getKey();
     }
-}
-
-function measureText() {
-    let textWidth = r.MeasureText(currentLine.t, 40);
-    return textWidth;
-}
-function isLineFull() {
-    return measureText() > r.GetScreenWidth() - 20;
 }
 
 function update(world) {
@@ -61,21 +56,10 @@ function update(world) {
 }
 
 function draw(world) {
-    world.page.draw = {
-        x: world.page.x,
-        y: world.page.y,
-    };
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
     r.DrawRectangleRec(world.page, r.GRAY);
-    console.log(world.page.t);
-    r.DrawText(
-        world.page.t + " ",
-        world.page.draw.x,
-        world.page.draw.y,
-        40,
-        r.BLACK,
-    );
+    r.DrawText(world.page.t + " ", world.page.x, world.page.y, 40, r.BLACK);
     r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
     r.EndDrawing();
 }
