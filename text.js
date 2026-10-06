@@ -32,13 +32,13 @@ function measureText(currentLine) {
     let textWidth = r.MeasureText(currentLine.t, 40);
     return textWidth;
 }
-function isLineFull(currentLine) {
-    return measureText(currentLine) > r.GetScreenWidth() - 20;
+function isLineFull(currentLine, world) {
+    return measureText(currentLine) >= world.page.width - 20;
 }
 function getText(world) {
     let key = getKey();
     while (key > 0) {
-        if (!isLineFull(currentLine)) {
+        if (!isLineFull(currentLine, world)) {
             currentLine.t += String.fromCodePoint(key);
         } else {
             world.page.t += currentLine.t + "\n";
