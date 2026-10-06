@@ -37,7 +37,7 @@ function getText(world) {
         } else {
             world.page.t += currentLine.t + "\n";
             currentLine.x = 12;
-            currentLine.y += 50;
+            currentLine.y += 70;
             world.page.draw.x = 12;
             world.page.draw.y += 50;
             currentLine.t = "";
