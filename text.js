@@ -24,11 +24,6 @@ let currentLine = {
     y: 12,
     t: "hello",
 };
-let nextLine = {
-    x: 12,
-    y: currentLine.y + 50,
-    t: "",
-};
 
 function getKey() {
     let key = r.GetCharPressed();
@@ -41,9 +36,9 @@ function getText(world) {
         if (!isLineFull()) {
             currentLine.t += String.fromCodePoint(key);
         } else {
+            world.page.t += currentLine.t;
             currentLine.x = 12;
             currentLine.y += 50;
-            world.page.t += currentLine.t;
             currentLine.t = "";
             console.log(currentLine.x, currentLine.y);
         }
@@ -67,7 +62,7 @@ function draw(world) {
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
     r.DrawRectangleRec(world.page, r.GRAY);
-    //r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
+    r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
     r.DrawText(world.page.t + "", world.page.x, world.page.y, 40, r.BLACK);
     r.EndDrawing();
 }
