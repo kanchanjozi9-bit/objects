@@ -1,56 +1,81 @@
 const r = require("raylib");
-let text = "";
-let x = 10;
-let y = 10;
+
 function setup() {
     const world = {};
-    world.width = 650;
-    world.height = 600;
-
-    r.SetTraceLogLevel(r.LOG_NONE);
+    world.width = 900;
+    world.height = 900;
+    ((world.page = {
+        x: 10,
+        y: 10,
+        width: world.width - 20,
+        height: world.height - 20,
+        color: r.BLACK,
+        t: "",
+    }),
+        r.SetTraceLogLevel(r.LOG_NONE));
     r.InitWindow(world.width, world.height, "Text");
     r.SetTargetFPS(50);
 
     return world;
 }
+
+let currentLine = {
+    x: 12,
+    y: 12,
+    t: "hello",
+};
+let nextLine = {
+    x: 12,
+    y: currentLine.y + 50,
+    t: "",
+};
+
 function getKey() {
     let key = r.GetCharPressed();
     return key;
 }
 
-function getText() {
+function getText(world) {
     let key = getKey();
     while (key > 0) {
-        text += String.fromCodePoint(key);
+        if (!isLineFull()) {
+            currentLine.t += String.fromCodePoint(key);
+            world.page.t += currentLine.t;
+        } else {
+            currentLine.x = nextLine.x;
+            currentLine.y += 50;
+            world.page.t += currentLine.t;
+            currentLine.t = "";
+            console.log(currentLine.x, currentLine.y);
+        }
         key = getKey();
-        nextLine();
     }
-    return text;
 }
+
 function measureText() {
-    let textWidth = r.MeasureText(getText(), 40);
+    let textWidth = r.MeasureText(currentLine.t, 40);
     return textWidth;
 }
-function nextLine() {
-    if (measureText() >= r.GetScreenWidth() - 10) {
-        x = 10;
-        y += 50;
-    }
+function isLineFull() {
+    return measureText() > r.GetScreenWidth() - 20;
 }
-function update() {
-    getText();
+
+function update(world) {
+    getText(world);
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
-    r.DrawText(text + " ", x, y, 40, r.WHITE);
+    r.ClearBackground(r.WHITE);
+    r.DrawRectangleRec(world.page, r.GRAY);
+    r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
+    r.DrawText(world.page.t + "", nextLine.x, nextLine.y, 40, r.BLACK);
     r.EndDrawing();
 }
 
 function loop(world) {
     while (!r.WindowShouldClose()) {
-        update();
+        update(world);
         draw(world);
     }
 }
