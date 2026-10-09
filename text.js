@@ -55,13 +55,21 @@ function getText(world) {
 function update(world) {
     getText(world);
 }
-
+const l1 = {
+    x: currentLine.x + 10,
+    y: currentLine.y,
+};
+const l2 = {
+    x: currentLine.x + 10,
+    y: currentLine.y + 50,
+};
 function draw(world) {
     r.BeginDrawing();
     r.ClearBackground(r.WHITE);
     r.DrawRectangleRec(world.page, r.GRAY);
     r.DrawText(world.page.t + " ", world.page.x, world.page.y, 40, r.BLACK);
     r.DrawText(currentLine.t + " ", currentLine.x, currentLine.y, 40, r.BLACK);
+    r.DrawLineEx(l1, l2, 10, r.BLACK);
     r.EndDrawing();
 }
 

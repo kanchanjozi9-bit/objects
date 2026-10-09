@@ -1,8 +1,10 @@
 const r = require("raylib");
 
 function setup() {
+    r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(900, 900, "something");
     r.SetTargetFPS(40);
+    r.InitAudioDevice();
 }
 
 function update() {
@@ -77,7 +79,7 @@ function getRandom(obj) {
 }
 function draw() {
     r.BeginDrawing();
-    r.ClearBackground(r.GRAY);
+    r.ClearBackground(r.LIGHTGRAY);
     r.DrawCircleSector(ear, 70, 355, 80, 1, r.BLACK);
     r.DrawCircleSector(ear2, 70, 270, 10, 1, r.BLACK);
     r.DrawRectangleRounded(face, 0.8, 8, r.WHITE);
@@ -86,7 +88,11 @@ function draw() {
     r.DrawRectangleRounded(eye2, 0.8, 5, r.BLACK);
     r.DrawRectangleRounded(eyeW2, 1, 5, r.WHITE);
     r.DrawRectangleRounded(lips, 0.8, 5, r.BLACK);
-    r.DrawText("HELLOOOOOOOO.........", 30, 30, 50, r.WHITE);
+    r.DrawText("Press SPACE to play sound", 80, 700, 40, r.BLACK);
+
+    const twinkle = r.LoadSound("twinkle copy.wav");
+
+    if (r.IsKeyPressed(r.KEY_SPACE)) r.PlaySound(twinkle);
 
     r.EndDrawing();
 }
@@ -102,5 +108,7 @@ function loop() {
 function main() {
     setup();
     loop();
+    r.UnloadSound(twinkle);
+    r.CloseAudioDevice();
 }
 main();

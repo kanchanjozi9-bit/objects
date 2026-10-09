@@ -1,6 +1,7 @@
 const r = require("raylib");
 
 function setup() {
+    r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(900, 900, "something");
     r.SetTargetFPS(40);
 }
@@ -31,7 +32,7 @@ const head = {
     y: center.y + 30,
 };
 function onclick() {
-    return r.IsKeyPressed(r.KEY_SPACE);
+    return r.IsKeyDown(r.KEY_SPACE);
 }
 function showlight(obj) {
     onclick() ? (obj.c = r.GOLD) : (obj.c = r.BLACK);
