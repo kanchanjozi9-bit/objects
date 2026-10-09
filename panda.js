@@ -20,7 +20,7 @@ function update() {
     eye2.y = eye.y;
     eyeW2.x = eye2.x + 29;
     eyeW2.y = eye2.y + 15;
-    lips.x = face.x + 150;
+    lips.x = face.x + 190;
     lips.y = face.y + 230;
 }
 
@@ -87,11 +87,10 @@ function draw() {
     r.DrawRectangleRounded(eyeW, 1, 5, r.WHITE);
     r.DrawRectangleRounded(eye2, 0.8, 5, r.BLACK);
     r.DrawRectangleRounded(eyeW2, 1, 5, r.WHITE);
-    r.DrawRectangleRounded(lips, 0.8, 5, r.BLACK);
+    r.DrawRing(lips, 30, 40, 280, 440, 10, r.BLACK);
     r.DrawText("Press SPACE to play sound", 80, 700, 40, r.BLACK);
 
     const twinkle = r.LoadSound("twinkle copy.wav");
-
     if (r.IsKeyPressed(r.KEY_SPACE)) r.PlaySound(twinkle);
 
     r.EndDrawing();
