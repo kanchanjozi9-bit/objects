@@ -1,8 +1,8 @@
 const r = require("raylib");
 
 function setup() {
-    const WIDTH = 1100;
-    const HEIGHT = 840;
+    const WIDTH = 1400;
+    const HEIGHT = 1000;
     const palette = {
         0: r.BlACK,
         1: r.SKYBLUE,
@@ -27,12 +27,14 @@ function draw(world) {
     r.BeginDrawing();
 
     r.ClearBackground(world.palette.bg);
-    r.DrawRectangle(50, 50, 70, 80, r.GOLD);
 
-    const twinkle = r.LoadSound("twinkle copy.wav");
+    const image = r.LoadImage("Screenshot 2026-10-09 at 4.33.13 PM.png");
+    const texture = r.LoadTextureFromImage(image); // const twinkle = r.LoadSound("twinkle copy.wav");
 
-    if (r.IsKeyPressed(r.KEY_SPACE)) r.PlaySound(twinkle);
-    if (r.IsKeyPressed(r.KEY_Q)) r.StopAudio(twinkle);
+    r.DrawTexture(texture, -30, -40, r.WHITE);
+    r.DrawText("hello", 400, 600, 80, r.BLACK);
+    // if (r.IsKeyPressed(r.KEY_SPACE)) r.PlaySound(twinkle);
+    // if (r.IsKeyPressed(r.KEY_Q)) r.StopAudio(twinkle);
 
     r.EndDrawing();
 }

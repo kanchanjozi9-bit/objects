@@ -4,6 +4,7 @@ function setup() {
     const WIDTH = 1100;
     const HEIGHT = 840;
     const numberOfCells = 20;
+    const FPS = 20;
     const palette = {
         0: r.SKYBLUE,
         1: r.SKYBLUE,
@@ -12,7 +13,6 @@ function setup() {
     };
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(WIDTH, HEIGHT, "Rings");
-    const FPS = 5;
     r.SetTargetFPS(FPS);
 
     return {
@@ -27,7 +27,7 @@ function setup() {
 function chooseColor(world, i, j) {
     const sin = Math.floor(Math.sin(i / j + world.cf) * 255) % 255;
     const cos = Math.floor(Math.cos(i / j + world.cf) * 750) % 255;
-    return { r: cos, g: 0, b: 0, a: 210 };
+    return { r: sin, g: 0, b: cos, a: 210 };
 }
 function createRing(world, ring, i, j) {
     const color = chooseColor(world, i, j);
